@@ -19,7 +19,7 @@ In a combat, characters should be placed on a 2D plane, with rules customizable 
 
 ## Elements
 
-The elements available in every game must be able to be split into distinct, non-intersecting simple cycles. That is, an element should counter exactly one other, that should counter exactly one different element, and so on until coming back to the first in the chain.
+The elements available in every game must be able to be split into distinct, non-intersecting simple cycles. That is, an element should counter exactly one other, that should counter exactly one different element, and so on until coming back to the first in the chain. The counter/countered mechanics could be implemented by adding two float coefficient constants: each constant multiply the effect of countering or being countered. As a result, the countering constant must not be lower than `1.0`, and the countered constant must not be higher than `1.0` as well.
 
 There will always be one default element: neutral (non-element). This is not countered by anything and doesn't counter anything either.
 
@@ -34,11 +34,18 @@ An action (or "skill", as a more common yet less precise term) is something a ch
   - `x_radius` (any non-negative number, `-1` for infinity).
   - `y_radius` (ditto).
   - `speed` (action speed, deciding how much behind that action would take the character backward in the queue).
-- Optional stats: TBD.
+- Optional stats:
+  - `args`: a mapping of custom arguments that should be used for specific behaviors.
+- Mandatory behavioral functions:
+  - `rollback`: undo all effects being active by the action.
+  - `passive`: proc exactly one upon learning/upgrading the action - this is used for purely passive actions (i.e. stat sticks).
+  - `active`: proc when being used as an active action.
+  - `on_strike`: proc when attacking a target (might be redundant with `active`, might be not).
+  - `on_struck`: proc when being attacked (i.e. reflecting damage actions).
+ 
+***Issues:*** This idea cannot yet implement a certain skill in that certain 2nd RPG, where the user "hides" in their first turn and then backstab in their second one.
 
-Our vision aims to have the actions only using the mandatory stats and the document-defined optional stats (i.e. cannot define custom names), and no overload programming is needed for the action behavior. This can change in the future.
-
-The library will have two default skills: attack (basic attack) and defend (skip).
+The library will have two default actions: attack (basic attack) and defend (skip). They are implemented as inherited class of the action base class.
 
 # Checklist
 
