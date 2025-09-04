@@ -26,9 +26,9 @@ public:
               __int16_t __atk, __int16_t __def,
               __int16_t __tec, __int16_t __men,
               __int16_t __agi, __int16_t __luc,) {
-        strcpy(_name, __name);
-        _hp  = __hp ; _mp  = __mp ;
-        _atk = __atk; _def = __def; _tec = __tec;
-        _men = __men; _agi = __agi; _luc = __luc;
+        strcpy(this->_name, __name);
+        this->_hp  = __hp ; this->_mp  = __mp ;
+        this->_atk = __atk; this->_def = __def; this->_tec = __tec;
+        this->_men = __men; this->_agi = __agi; this->_luc = __luc;
     }
 };
