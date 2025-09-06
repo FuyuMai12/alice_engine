@@ -29,10 +29,8 @@ public:
     /**
     * @brief Initialize a character.
     *
-    * This function initializes a character with basic required attributes.
-    *
     * @param __name Character name
-    * @param __elem Character's element
+    * @param __elem An Element object that denotes the character's element
     * @param __hp, __mp Character's max HP and MP, respectively. This is also used
     * to initialize a character's current HP and MP as well.
     * @param __atk, __def Character's physical offensive and defensive power, respectively.
