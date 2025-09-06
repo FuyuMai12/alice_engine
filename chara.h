@@ -1,5 +1,7 @@
 #pragma once
 
+#include "elements.h"
+
 class Character {
 private:
     __int16_t _hp;
@@ -11,6 +13,9 @@ private:
     __int16_t _agi;
     __int16_t _luc;
     char* _name;
+    Element* _element;
+    __int16_t _curr_hp;
+    __int16_t _curr_mp;
 public:
     const __int16_t MAX_DISPLAY_HP  = 9999;
     const __int16_t MAX_DISPLAY_MP  = 9999;
@@ -21,14 +26,18 @@ public:
     const __int16_t MAX_DISPLAY_AGI =  999;
     const __int16_t MAX_DISPLAY_LUC =  999;
 
-    Character(char* __name,
+    Character(char* __name, Element& __elem,
               __int16_t __hp , __int16_t __mp,
               __int16_t __atk, __int16_t __def,
               __int16_t __tec, __int16_t __men,
               __int16_t __agi, __int16_t __luc,) {
         strcpy(this->_name, __name);
+        _element = __elem;
+
         this->_hp  = __hp ; this->_mp  = __mp ;
         this->_atk = __atk; this->_def = __def; this->_tec = __tec;
         this->_men = __men; this->_agi = __agi; this->_luc = __luc;
+        
+        this->_curr_hp = this->_hp; this->_curr_mp = this->_mp;
     }
 };

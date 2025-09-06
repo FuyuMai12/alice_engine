@@ -1,3 +1,5 @@
+#pragma once
+
 #include "combat_logics.h"
 
 class Element {
@@ -12,17 +14,37 @@ public:
         this->_counteringRatio = combat_logics::ONE * 125 / 100;
     }
 
-    void setCounteredBy(Element &counteredElement, __int64_t counteredRatio) {
+    void setCounteredBy(Element &counteredElement, __int64_t counteredRatio = -1LL) {
         this->_counteredBy = counteredElement;
-        this->_counteredRatio = counteredRatio;
+        if (counteredRatio != -1LL) this->_counteredRatio = counteredRatio;
     }
 
-    void setCountering(Element &counteringElement, __int64_t counteringRatio) {
+    void setCountering(Element &counteringElement, __int64_t counteringRatio = -1LL) {
         this->_countering = counteringElement;
-        this->_counteringRatio = counteringRatio;
+        if (counteringRatio != -1LL) this->_counteringRatio = counteringRatio;
     }
 };
 
-class ElementNeutral: Element {
-    ElementNeutral(): Element() {}
-};
+namespace default_elements {
+    Element NEUTRAL   = Element();
+    Element FIRE      = Element();
+    Element AIR       = Element();
+    Element LIGHTNING = Element();
+    Element EARTH     = Element();
+    Element WATER     = Element();
+
+    FIRE.setCounteredBy(WATER);
+    FIRE.setCountering(AIR);
+
+    AIR.setCounteredBy(FIRE);
+    AIR.setCountering(LIGHTNING);
+
+    LIGHTNING.setCounteredBy(AIR);
+    LIGHTNING.setCountering(EARTH);
+
+    EARTH.setCounteredBy(LIGHTNING);
+    EARTH.setCountering(WATER);
+
+    WATER.setCounteredBy(EARTH);
+    WATER.setCountering(FIRE);
+}
