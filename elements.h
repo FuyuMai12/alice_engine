@@ -1,6 +1,7 @@
 #pragma once
 
 #include "combat_logics.h"
+using namespace ae_core;
 
 /**
 * @brief An element. Different elements will have different damage interactions and buffs/debuffs.
@@ -8,23 +9,23 @@
 * @param _counteredBy An Element object that denotes the element that counters the current element.
 * @param _countering An Element object that denotes the element that is countered by the current element.
 * @param _counteredRatio The ratio of decreasing damage taken by the countered element.
-* This should be a value lower than combat_logics::ONE.
+* This should be a value lower than 1.
 * @param _counteringRatio The ratio of increasing damage taken by the countering element.
-* This should be a value lower than combat_logics::ONE.
+* This should be a value higher than 1.
 */
 class Element {
 private:
-    Element*  _counteredBy;
-    Element*  _countering ;
-    __int64_t  _counteredRatio;
-    __int64_t _counteringRatio;
+    Element* _counteredBy;
+    Element* _countering ;
+    aen  _counteredRatio;
+    aen _counteringRatio;
 public:
     /**
     * @brief Initialize an element.
     */
     Element() {
-        this->_counteredRatio  = combat_logics::ONE *  80 / 100;
-        this->_counteringRatio = combat_logics::ONE * 125 / 100;
+        this->_counteredRatio  = AE_numstr("0.8");
+        this->_counteringRatio = AE_numstr("1.25");
     }
 
     /**
@@ -32,14 +33,14 @@ public:
     *
     * @param counteredElement An Element object that denotes the element that counters the current element.
     * @param counteredRatio The ratio of decreasing damage taken by the countered element.
-    * This should be a value lower than combat_logics::ONE.
+    * This should be a value lower than 1.
     * -1 denotes using the default/current value.
     *
     * @returns None.
     */
-    void setCounteredBy(Element &counteredElement, __int64_t counteredRatio = -1LL) {
-        this->_counteredBy = counteredElement;
-        if (counteredRatio != -1LL) this->_counteredRatio = counteredRatio;
+    void setCounteredBy(Element &counteredElement, aen counteredRatio = AE_numstr("-1")) {
+        this->_counteredBy = &counteredElement;
+        if (counteredRatio != AE_numstr("-1")) this->_counteredRatio = counteredRatio;
     }
 
     /**
@@ -47,18 +48,21 @@ public:
     *
     * @param counteredElement An Element object that denotes the element that is countered by the current element.
     * @param counteredRatio The ratio of increasing damage taken by the countering element.
-    * This should be a value higher than combat_logics::ONE.
+    * This should be a value higher than 1.
     * -1 denotes using the default/current value.
     *
     * @returns None.
     */
-    void setCountering(Element &counteringElement, __int64_t counteringRatio = -1LL) {
-        this->_countering = counteringElement;
-        if (counteringRatio != -1LL) this->_counteringRatio = counteringRatio;
+    void setCountering(Element &counteringElement, aen counteringRatio = AE_numstr("-1")) {
+        this->_countering = &counteringElement;
+        if (counteringRatio != AE_numstr("-1")) this->_counteringRatio = counteringRatio;
     }
 };
 
 namespace default_elements {
+    // Initialization state of the default elements. If not initialized, this can't be used.
+    bool initialized = false;
+
     // Neutral element: counters nothing, nothing counters it.
     Element NEUTRAL   = Element();
 
@@ -69,18 +73,22 @@ namespace default_elements {
     Element EARTH     = Element();
     Element WATER     = Element();
 
-    FIRE.setCounteredBy(WATER);
-    FIRE.setCountering(AIR);
+    void initialize() {
+        initialized = true;
 
-    AIR.setCounteredBy(FIRE);
-    AIR.setCountering(LIGHTNING);
+        FIRE.setCounteredBy(WATER);
+        FIRE.setCountering(AIR);
 
-    LIGHTNING.setCounteredBy(AIR);
-    LIGHTNING.setCountering(EARTH);
+        AIR.setCounteredBy(FIRE);
+        AIR.setCountering(LIGHTNING);
 
-    EARTH.setCounteredBy(LIGHTNING);
-    EARTH.setCountering(WATER);
+        LIGHTNING.setCounteredBy(AIR);
+        LIGHTNING.setCountering(EARTH);
 
-    WATER.setCounteredBy(EARTH);
-    WATER.setCountering(FIRE);
+        EARTH.setCounteredBy(LIGHTNING);
+        EARTH.setCountering(WATER);
+
+        WATER.setCounteredBy(EARTH);
+        WATER.setCountering(FIRE);
+    }
 }

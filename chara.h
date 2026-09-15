@@ -1,6 +1,8 @@
 #pragma once
 
 #include "elements.h"
+#include "string.h"
+using namespace ae_core;
 
 /**
 * @brief The most basic agent in a game: a character. Can be either a PC or an NPC.
@@ -16,27 +18,27 @@
 */
 class Character {
 private:
-    __int16_t _hp;
-    __int16_t _mp;
-    __int16_t _atk;
-    __int16_t _def;
-    __int16_t _tec;
-    __int16_t _men;
-    __int16_t _agi;
-    __int16_t _luc;
+    aen _hp;
+    aen _mp;
+    aen _atk;
+    aen _def;
+    aen _tec;
+    aen _men;
+    aen _agi;
+    aen _luc;
     char* _name;
     Element* _element;
-    __int16_t _curr_hp;
-    __int16_t _curr_mp;
+    aen _curr_hp;
+    aen _curr_mp;
 public:
-    const __int16_t MAX_DISPLAY_HP  = 9999;
-    const __int16_t MAX_DISPLAY_MP  = 9999;
-    const __int16_t MAX_DISPLAY_ATK =  999;
-    const __int16_t MAX_DISPLAY_DEF =  999;
-    const __int16_t MAX_DISPLAY_TEC =  999;
-    const __int16_t MAX_DISPLAY_MEN =  999;
-    const __int16_t MAX_DISPLAY_AGI =  999;
-    const __int16_t MAX_DISPLAY_LUC =  999;
+    const aen MAX_DISPLAY_HP  = AE_numstr("9999");
+    const aen MAX_DISPLAY_MP  = AE_numstr("9999");
+    const aen MAX_DISPLAY_ATK = AE_numstr( "999");
+    const aen MAX_DISPLAY_DEF = AE_numstr( "999");
+    const aen MAX_DISPLAY_TEC = AE_numstr( "999");
+    const aen MAX_DISPLAY_MEN = AE_numstr( "999");
+    const aen MAX_DISPLAY_AGI = AE_numstr( "999");
+    const aen MAX_DISPLAY_LUC = AE_numstr( "999");
 
     /**
     * @brief Initialize a character.
@@ -51,12 +53,12 @@ public:
     * @param __luc Character's luck/luckiness.
     */
     Character(char* __name, Element& __elem,
-              __int16_t __hp , __int16_t __mp,
-              __int16_t __atk, __int16_t __def,
-              __int16_t __tec, __int16_t __men,
-              __int16_t __agi, __int16_t __luc,) {
+              aen __hp , aen __mp,
+              aen __atk, aen __def,
+              aen __tec, aen __men,
+              aen __agi, aen __luc) {
         strcpy(this->_name, __name);
-        _element = __elem;
+        _element = &__elem;
 
         this->_hp  = __hp ; this->_mp  = __mp ;
         this->_atk = __atk; this->_def = __def; this->_tec = __tec;

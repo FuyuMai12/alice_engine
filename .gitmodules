@@ -1,0 +1,3 @@
+[submodule "fr_math"]
+	path = fr_math
+	url = https://github.com/deftio/fr_math.git
