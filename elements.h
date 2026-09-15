@@ -2,6 +2,16 @@
 
 #include "combat_logics.h"
 
+/**
+* @brief An element. Different elements will have different damage interactions and buffs/debuffs.
+*
+* @param _counteredBy An Element object that denotes the element that counters the current element.
+* @param _countering An Element object that denotes the element that is countered by the current element.
+* @param _counteredRatio The ratio of decreasing damage taken by the countered element.
+* This should be a value lower than combat_logics::ONE.
+* @param _counteringRatio The ratio of increasing damage taken by the countering element.
+* This should be a value lower than combat_logics::ONE.
+*/
 class Element {
 private:
     Element*  _counteredBy;
@@ -20,7 +30,7 @@ public:
     /**
     * @brief Set an element that counters the current element.
     *
-    * @param counteredElement The element that counters the current element.
+    * @param counteredElement An Element object that denotes the element that counters the current element.
     * @param counteredRatio The ratio of decreasing damage taken by the countered element.
     * This should be a value lower than combat_logics::ONE.
     * -1 denotes using the default/current value.
@@ -35,7 +45,7 @@ public:
     /**
     * @brief Set an element that is countered by the current element.
     *
-    * @param counteredElement The element that is countered by the current element.
+    * @param counteredElement An Element object that denotes the element that is countered by the current element.
     * @param counteredRatio The ratio of increasing damage taken by the countering element.
     * This should be a value higher than combat_logics::ONE.
     * -1 denotes using the default/current value.

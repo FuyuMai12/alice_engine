@@ -2,6 +2,18 @@
 
 #include "elements.h"
 
+/**
+* @brief The most basic agent in a game: a character. Can be either a PC or an NPC.
+*
+* @param _hp, _mp Character's max HP and MP, respectively.
+* @param _atk, _def Character's physical offensive and defensive power, respectively.
+* @param _tec, _men Character's magical offensive and defensive power, respectively.
+* @param _agi Character's speed.
+* @param _luc Character's luck/luckiness.
+* @param _name Character's name
+* @param _element An Element object that denotes the character's element
+* @param _curr_hp, _curr_mp Character's current HP and MP, respectively.
+*/
 class Character {
 private:
     __int16_t _hp;
@@ -29,7 +41,7 @@ public:
     /**
     * @brief Initialize a character.
     *
-    * @param __name Character name
+    * @param __name Character's name
     * @param __elem An Element object that denotes the character's element
     * @param __hp, __mp Character's max HP and MP, respectively. This is also used
     * to initialize a character's current HP and MP as well.
