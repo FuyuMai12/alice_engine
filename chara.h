@@ -1,5 +1,6 @@
 #pragma once
 
+#include "effect.h"
 #include "elements.h"
 #include "string.h"
 using namespace ae_core;

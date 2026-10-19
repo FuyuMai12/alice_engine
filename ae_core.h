@@ -10,6 +10,13 @@ namespace ae_core {
     using aenl = ::s64;
     std::mt19937 ae_generator(ALICE_ENGINE_SEED);
 
+    class Coordinates2D: public std::pair<aen, aen> {
+    public:
+        aen& x = this->first;
+        aen& y = this->second;
+        using pair::pair;
+    };
+
     aen AE_numstr(const char* s) {
         return FR_numstr(s, ALICE_ENGINE_DEFAULT_RADIX);
     }
